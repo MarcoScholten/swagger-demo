@@ -1,0 +1,2756 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "API voor het aanleveren van beheerdersinformatie",
+    "version" : "2.0",
+    "title" : "Beheerdersinformatie Services"
+  },
+  "host" : "service10.acceptatie.kadaster.nl",
+  "basePath" : "/klic/ntd/bmkl",
+  "tags" : [ {
+    "name" : "gebiedsinformatieAanvragen",
+    "description" : "Gebiedsinformatie-aanvragen service"
+  }, {
+    "name" : "v2/gebiedsinformatieAanvragen",
+    "description" : "Gebiedsinformatie-aanvragen service"
+  }, {
+    "name" : "waardelijsten",
+    "description" : "Waardelijsten service"
+  }, {
+    "name" : "v2/waardelijsten",
+    "description" : "Waardelijsten service"
+  } ],
+  "schemes" : [ "https" ],
+  "paths" : {
+    "/v2/gebiedsinformatieAanvragen/" : {
+      "get" : {
+        "tags" : [ "v2/gebiedsinformatieAanvragen" ],
+        "summary" : "Zoeken gebiedsinformatie-aanvragen die voldoen aan de opgegeven selectie-criteria.",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "aanvraagSoort",
+          "in" : "query",
+          "description" : "Soort gebiedsinformatie-aanvraag (waarde uit waardelijst).",
+          "required" : false,
+          "type" : "string",
+          "enum" : [ "calamiteitenmelding", "graafmelding", "orientatieverzoek" ]
+        }, {
+          "name" : "klicMeldnummer",
+          "in" : "query",
+          "description" : "Het klicMeldnummer van een gebiedsinformatie-aanvraag.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "aanvragerOrganisatieNaam",
+          "in" : "query",
+          "description" : "Naam van de organisatie van de aanvrager van gebiedsinformatie.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "referentie",
+          "in" : "query",
+          "description" : "Referentie van de gebiedsinformatie-aanvraag.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "opdrachtgeverOrganisatieNaam",
+          "in" : "query",
+          "description" : "Naam van de organisatie van de opdrachtgever voor de aanvraag.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "opdrachtgeverContactEmail",
+          "in" : "query",
+          "description" : "Het e-mailAdres van het contact van de opdrachtgever voor de aanvraag.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "datumType",
+          "in" : "query",
+          "description" : "Bij 'aanvraagDatum'/'mutatieDatum': aanvragen die aangevraagd/gemuteerd zijn binnen de aangegeven periode. Bij 'graafPeriode': aanvragen die de aangegeven periode (startdatum, einddatum) overlappen.",
+          "required" : false,
+          "type" : "string",
+          "enum" : [ "aanvraagDatum", "graafPeriode", "mutatieDatum" ]
+        }, {
+          "name" : "datumVanaf",
+          "in" : "query",
+          "description" : "De vanaf-datumtijd van de periode waarover informatie gezocht wordt, volgens de ISO 8601 standaard, bijvoorbeeld 2018-07-16T09:20:00+02:00. Dient gebruikt te worden in combinatie met datumType.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "datumTot",
+          "in" : "query",
+          "description" : "De tot-datumtijd van de periode waarover informatie gezocht wordt, volgens de ISO 8601 standaard, bijvoorbeeld 2013-07-16T10:00:00+01:00. Dient gebruikt te worden in combinatie met datumType.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "soortWerkzaamheden",
+          "in" : "query",
+          "description" : "Soort werkzaamheden (zie waardelijst).",
+          "required" : false,
+          "type" : "string",
+          "enum" : [ "CAIkabelLeggen", "HDPEbuisLeggen", "OVwerkzaamheden", "aardingSlaan", "archeologischOnderzoek", "baggerwerk", "bestratingswerk", "bodemonderzoekSonderingen", "bodemsanering", "bomenRooienOfPlanten", "bouwwerkzaamheden", "damwandBeschoeiingSlaan", "diepploegen", "drainage", "duikersLeggen", "funderingswerk", "gasleidingLeggen", "grondwerkBouwrijpMaken", "handholesPlaatsen", "heien", "hekwerkPlaatsen", "hovenierswerkzaamheden", "huisaansluitingenMaken", "kabelsLeidingenLeggen", "kabelsLeidingenVerleggen", "leggenHoogspanning", "leggenLaagspanning", "leggenMiddenspanning", "mantelbuisLeggen", "palenMastenPlaatsenVerwijderen", "persingBoring", "proefsleuvenGraven", "reconstructiewerkzaamheden", "rioleringswerkzaamheden", "ruilverkaveling", "sloopwerkzaamheden", "stadsverwarmingLeggen", "stobbenFrezen", "tanksPuttenContainersInOfUitgraven", "telefoonkabelsLeggen", "trafostationPlaatsen", "verwijderenKabelsLeidingen", "vijverGraven", "voerkuilenGraven", "waterbouwkundigeWerken", "waterleidingLeggen", "wegenbouw", "werkAanBestaandeLeiding", "woningbouw", "woonrijpMaken", "zinkerMaken" ]
+        }, {
+          "name" : "offset",
+          "in" : "query",
+          "description" : "De offset geeft aan vanaf welke record het resultaat van de query wordt teruggeven.",
+          "required" : false,
+          "type" : "integer",
+          "default" : 0
+        }, {
+          "name" : "limiet",
+          "in" : "query",
+          "description" : "Maximum aantal gebiedsinformatie-aanvragen die in het antwoord teruggegeven mogen worden. Het maximum wordt door het systeem begrensd.",
+          "required" : false,
+          "type" : "integer",
+          "default" : 50
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Output type",
+            "schema" : {
+              "$ref" : "#/definitions/GebiedsinformatieAanvraagPagedResponse"
+            }
+          },
+          "400" : {
+            "description" : "ongeldig request, reden van ongeldigheid te vinden in de 'reason' eigenschap",
+            "schema" : {
+              "$ref" : "#/definitions/FoutMelding"
+            }
+          },
+          "401" : {
+            "description" : "gebruiker is niet geidentificeerd"
+          },
+          "403" : {
+            "description" : "gebruiker heeft niet de juiste rechten om dit verzoek uit te voeren"
+          },
+          "404" : {
+            "description" : "geen gebiedsinformatie-aanvragen gevonden",
+            "schema" : {
+              "$ref" : "#/definitions/FoutMelding"
+            }
+          }
+        },
+        "x-camelContextId" : "netbeheerderAPI",
+        "x-routeId" : "v2gia_getByQuery"
+      }
+    },
+    "/v2/gebiedsinformatieAanvragen/{giAanvraagId}" : {
+      "get" : {
+        "tags" : [ "v2/gebiedsinformatieAanvragen" ],
+        "summary" : "Opvragen details van de gebiedsinformatie-aanvraag.",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "giAanvraagId",
+          "in" : "path",
+          "description" : "Unieke identificatie van de gebiedsinformatie-aanvraag (UUID).",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Output type",
+            "schema" : {
+              "$ref" : "#/definitions/GebiedsinformatieAanvraag"
+            }
+          },
+          "400" : {
+            "description" : "ongeldig request, reden van ongeldigheid te vinden in  de 'reason' eigenschap",
+            "schema" : {
+              "$ref" : "#/definitions/FoutMelding"
+            }
+          },
+          "401" : {
+            "description" : "gebruiker is niet geidentificeerd"
+          },
+          "403" : {
+            "description" : "gebruiker heeft niet de juiste rechten om dit verzoek uit te voeren"
+          },
+          "404" : {
+            "description" : "gebiedsinformatie-aanvraag is niet gevonden",
+            "schema" : {
+              "$ref" : "#/definitions/FoutMelding"
+            }
+          }
+        },
+        "x-camelContextId" : "netbeheerderAPI",
+        "x-routeId" : "v2gia_getById"
+      }
+    },
+    "/v2/gebiedsinformatieAanvragen/{giAanvraagId}/beheerdersinformatieAanvragen" : {
+      "get" : {
+        "tags" : [ "v2/gebiedsinformatieAanvragen" ],
+        "summary" : "Zoeken beheerdersinformatie-aanvragen bij gebiedsinformatie-aanvragen die voldoen aan bepaalde selectiecriteria.\n                ",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "giAanvraagId",
+          "in" : "path",
+          "description" : "Unieke identificatie van de gebiedsinformatie-aanvraag (UUID). Wildcard '-' voor alle gebiedsinformatie-aanvragen.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "bronhoudercode",
+          "in" : "query",
+          "description" : "Unieke code van de bronhouder (netbeheerder) waarvoor een beheerdersinformatie-aanvraag wordt behandeld.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "biNotificatieStatus",
+          "in" : "query",
+          "description" : "Status betreffende het informeren van een bronhouder over een (openstaande) beheerdersinformatie-aanvraag (zie waardelijst).",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "biProductieStatus",
+          "in" : "query",
+          "description" : "Status betreffende het produceren van beheerdersinformatie naar aanleiding van een beheerdersinformatie-aanvraag (zie waardelijst).",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "datumType",
+          "in" : "query",
+          "description" : "Bij 'mutatieDatum': beheerdersinformatie-aanvragen die gemuteerd zijn binnen de aangegeven periode.",
+          "required" : false,
+          "type" : "string",
+          "enum" : [ "mutatieDatum" ]
+        }, {
+          "name" : "datumVanaf",
+          "in" : "query",
+          "description" : "De vanaf-datumtijd van de periode waarover informatie gezocht wordt, volgens de ISO 8601 standaard, bijvoorbeeld 2018-07-16T09:20:00+02:00. Dient gebruikt te worden in combinatie met datumType.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "datumTot",
+          "in" : "query",
+          "description" : "De tot-datumtijd van de periode waarover informatie gezocht wordt, volgens de ISO 8601 standaard, bijvoorbeeld 2013-07-16T10:00:00+01:00. Dient gebruikt te worden in combinatie met datumType.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "offset",
+          "in" : "query",
+          "description" : "De offset geeft aan vanaf welke record het resultaat van de query wordt teruggeven.",
+          "required" : false,
+          "type" : "integer",
+          "default" : 0
+        }, {
+          "name" : "limiet",
+          "in" : "query",
+          "description" : "Maximum aantal gebiedsinformatie-aanvragen die in het antwoord teruggegeven mogen worden. Het maximum wordt door het systeem begrensd.",
+          "required" : false,
+          "type" : "integer",
+          "default" : 50
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Output type",
+            "schema" : {
+              "$ref" : "#/definitions/BeheerdersinformatieAanvraagPagedResponse"
+            }
+          },
+          "400" : {
+            "description" : "ongeldig request, reden van ongeldigheid te vinden in  de 'reason' eigenschap",
+            "schema" : {
+              "$ref" : "#/definitions/FoutMelding"
+            }
+          },
+          "401" : {
+            "description" : "gebruiker is niet geidentificeerd"
+          },
+          "403" : {
+            "description" : "gebruiker heeft niet de juiste rechten om dit verzoek uit te voeren"
+          },
+          "404" : {
+            "description" : "geen beheerdersinformatie-aanvragen gevonden",
+            "schema" : {
+              "$ref" : "#/definitions/FoutMelding"
+            }
+          }
+        },
+        "x-camelContextId" : "netbeheerderAPI",
+        "x-routeId" : "v2gia_bi_getById"
+      }
+    },
+    "/v2/gebiedsinformatieAanvragen/{giAanvraagId}/beheerdersinformatieAanvragen/{biAanvraagId}" : {
+      "get" : {
+        "tags" : [ "v2/gebiedsinformatieAanvragen" ],
+        "summary" : "Opvragen beheerdersinformatie-aanvraag bij de aangegeven gebiedsinformatie-aanvraag.",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "giAanvraagId",
+          "in" : "path",
+          "description" : "Unieke identificatie van de gebiedsinformatie-aanvraag (UUID).",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "biAanvraagId",
+          "in" : "path",
+          "description" : "Unieke identificatie van de beheerdersinformatie-aanvraag (UUID).",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Output type",
+            "schema" : {
+              "$ref" : "#/definitions/BeheerdersinformatieAanvraag"
+            }
+          },
+          "400" : {
+            "description" : "ongeldig request, reden van ongeldigheid te vinden in  de 'reason' eigenschap",
+            "schema" : {
+              "$ref" : "#/definitions/FoutMelding"
+            }
+          },
+          "401" : {
+            "description" : "gebruiker is niet geidentificeerd"
+          },
+          "403" : {
+            "description" : "gebruiker heeft niet de juiste rechten om dit verzoek uit te voeren"
+          },
+          "404" : {
+            "description" : "beheerdersinformatie-aanvraag bij gebiedsinformatie-aanvraag is niet gevonden",
+            "schema" : {
+              "$ref" : "#/definitions/FoutMelding"
+            }
+          }
+        },
+        "x-camelContextId" : "netbeheerderAPI",
+        "x-routeId" : "v2gia_bi_getById2"
+      },
+      "patch" : {
+        "tags" : [ "v2/gebiedsinformatieAanvragen" ],
+        "summary" : "Bevestigen ontvangst beheerdersinformatie-aanvraag bij de aangegeven gebiedsinformatie-aanvraag.",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "giAanvraagId",
+          "in" : "path",
+          "description" : "Unieke identificatie van de gebiedsinformatie-aanvraag (UUID).",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "biAanvraagId",
+          "in" : "path",
+          "description" : "Unieke identificatie van de beheerdersinformatie-aanvraag (UUID).",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "Uit te voeren operatie op de beheerdersinformatie-aanvraag. (JSON) biNotificatieStatus: bevestigingOntvangen.",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/PatchOperation"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "geldig request"
+          },
+          "400" : {
+            "description" : "ongeldig request, reden van ongeldigheid te vinden in  de 'reason' eigenschap",
+            "schema" : {
+              "$ref" : "#/definitions/FoutMelding"
+            }
+          },
+          "401" : {
+            "description" : "gebruiker is niet geidentificeerd"
+          },
+          "403" : {
+            "description" : "gebruiker heeft niet de juiste rechten om dit verzoek uit te voeren"
+          },
+          "404" : {
+            "description" : "beheerdersinformatie-aanvraag bij gebiedsinformatie-aanvraag is niet gevonden",
+            "schema" : {
+              "$ref" : "#/definitions/FoutMelding"
+            }
+          },
+          "405" : {
+            "description" : "de beheerdersinformatie-aanvraag heeft een status die niet bevestigd kan worden",
+            "schema" : {
+              "$ref" : "#/definitions/FoutMelding"
+            }
+          },
+          "410" : {
+            "description" : "bevestiging wordt niet geaccepteerd; de aanvraagdatum voor gebiedsinformatie is langer dan 20 werkdagen geleden",
+            "schema" : {
+              "$ref" : "#/definitions/FoutMelding"
+            }
+          }
+        },
+        "x-camelContextId" : "netbeheerderAPI",
+        "x-routeId" : "v2bi_patchById"
+      }
+    },
+    "/v2/gebiedsinformatieAanvragen/{giAanvraagId}/beheerdersinformatieAanvragen/{biAanvraagId}/aanleveringen" : {
+      "get" : {
+        "tags" : [ "v2/gebiedsinformatieAanvragen" ],
+        "summary" : "Opvragen aanleveringen voor de aangegeven beheerdersinformatie-aanvraag.",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "giAanvraagId",
+          "in" : "path",
+          "description" : "Unieke identificatie van de gebiedsinformatie-aanvraag (UUID).",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "biAanvraagId",
+          "in" : "path",
+          "description" : "Unieke identificatie van de beheerdersinformatie-aanvraag (UUID).",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Output type",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Aanlevering"
+              }
+            }
+          },
+          "400" : {
+            "description" : "ongeldig request, reden van ongeldigheid te vinden in  de 'reason' eigenschap",
+            "schema" : {
+              "$ref" : "#/definitions/FoutMelding"
+            }
+          },
+          "401" : {
+            "description" : "gebruiker is niet geidentificeerd"
+          },
+          "403" : {
+            "description" : "gebruiker heeft niet de juiste rechten om dit verzoek uit te voeren"
+          },
+          "404" : {
+            "description" : "beheerdersinformatie-aanvraag bij gebiedsinformatie-aanvraag is niet gevonden",
+            "schema" : {
+              "$ref" : "#/definitions/FoutMelding"
+            }
+          }
+        },
+        "x-camelContextId" : "netbeheerderAPI",
+        "x-routeId" : "v2aanleveringen_query"
+      },
+      "post" : {
+        "tags" : [ "v2/gebiedsinformatieAanvragen" ],
+        "summary" : "Aanleveren beheerdersinformatie voor de aangegeven beheerdersinformatie-aanvraag.",
+        "consumes" : [ "multipart/form-data" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "giAanvraagId",
+          "in" : "path",
+          "description" : "Unieke identificatie van de gebiedsinformatie-aanvraag (UUID)",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "biAanvraagId",
+          "in" : "path",
+          "description" : "Unieke identificatie van de beheerdersinformatie-aanvraag (UUID).",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "netinformatie",
+          "in" : "formData",
+          "description" : "De beheerdersinformatie in de vorm van een zipbestand. De root directory van dit zipbestand bevat minimaal de XML met beheerdersinformatie-features conform IMKL2015-wion.xsd plus eventuele pdf-documenten.",
+          "required" : true,
+          "type" : "file"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "geldig request"
+          },
+          "202" : {
+            "description" : "het vorige request is in behandeling",
+            "schema" : {
+              "$ref" : "#/definitions/FoutMelding"
+            }
+          },
+          "400" : {
+            "description" : "ongeldig request, reden van ongeldigheid te vinden in  de 'reason' eigenschap",
+            "schema" : {
+              "$ref" : "#/definitions/FoutMelding"
+            }
+          },
+          "401" : {
+            "description" : "gebruiker is niet geidentificeerd"
+          },
+          "403" : {
+            "description" : "gebruiker heeft niet de juiste rechten om dit verzoek uit te voeren"
+          },
+          "405" : {
+            "description" : "de beheerdersinformatie-aanvraag is nog niet bevestigd of er is al beheerdersinformatie voor deze beheerdersinformatie-aanvraag geleverd",
+            "schema" : {
+              "$ref" : "#/definitions/FoutMelding"
+            }
+          },
+          "410" : {
+            "description" : "beheerdersinformatie wordt niet geaccepteerd; de aanvraagdatum voor gebiedsinformatie is langer dan 20 werkdagen geleden",
+            "schema" : {
+              "$ref" : "#/definitions/FoutMelding"
+            }
+          },
+          "415" : {
+            "description" : "het request bevat geen Multipart Form Data",
+            "schema" : {
+              "$ref" : "#/definitions/FoutMelding"
+            }
+          }
+        },
+        "x-camelContextId" : "netbeheerderAPI",
+        "x-routeId" : "v2aanleveringen_post"
+      }
+    },
+    "/v2/gebiedsinformatieAanvragen/{giAanvraagId}/beheerdersinformatieAanvragen/{biAanvraagId}/aanleveringen/{aanleveringId}/zip" : {
+      "get" : {
+        "tags" : [ "v2/gebiedsinformatieAanvragen" ],
+        "summary" : "Opvragen beheerdersinformatie-levering zoals deze door netbeheerder is aangeleverd",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "giAanvraagId",
+          "in" : "path",
+          "description" : "Unieke identificatie van de gebiedsinformatie-aanvraag (UUID). Deze parameter wordt door dit endpoint genegeerd",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "biAanvraagId",
+          "in" : "path",
+          "description" : "Unieke identificatie van de beheerdersinformatie-aanvraag (UUID). Deze parameter wordt door dit endpoint genegeerd.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "aanleveringId",
+          "in" : "path",
+          "description" : "Unieke identificatie van de aanlevering(UUID)",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "geldig request"
+          },
+          "400" : {
+            "description" : "ongeldig request, reden van ongeldigheid te vinden in  de 'reason' eigenschap",
+            "schema" : {
+              "$ref" : "#/definitions/FoutMelding"
+            }
+          },
+          "401" : {
+            "description" : "gebruiker is niet geidentificeerd"
+          },
+          "403" : {
+            "description" : "gebruiker heeft niet de juiste rechten om dit verzoek uit te voeren"
+          },
+          "404" : {
+            "description" : "aanlevering is niet gevonden",
+            "schema" : {
+              "$ref" : "#/definitions/FoutMelding"
+            }
+          }
+        },
+        "x-camelContextId" : "netbeheerderAPI",
+        "x-routeId" : "v2bi_getAanlevering_zip"
+      }
+    },
+    "/v2/gebiedsinformatieAanvragen/{giAanvraagId}/beheerdersinformatieAanvragen/{biAanvraagId}/beheerdersinformatieLevering" : {
+      "get" : {
+        "tags" : [ "v2/gebiedsinformatieAanvragen" ],
+        "summary" : "Zoeken beheerdersinformatie-leveringen bij beheerdersinformatie-aanvragen en gebiedsinformatie-aanvragen die voldoen aan\n                    bepaalde selectiecriteria.\n                ",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "giAanvraagId",
+          "in" : "path",
+          "description" : "Unieke identificatie van de gebiedsinformatie-aanvraag (UUID). Wildcard '-' voor alle gebiedsinformatie-aanvragen.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "biAanvraagId",
+          "in" : "path",
+          "description" : "Unieke identificatie van de beheerdersinformatie-aanvraag (UUID). Wildcard '-' voor alle beheerdersinformatie-aanvragen.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "datumType",
+          "in" : "query",
+          "description" : "Bij 'mutatieDatum': beheerdersinformatie-aanvragen die gemuteerd zijn binnen de aangegeven periode.",
+          "required" : false,
+          "type" : "string",
+          "enum" : [ "mutatieDatum" ]
+        }, {
+          "name" : "datumVanaf",
+          "in" : "query",
+          "description" : "De vanaf-datumtijd van de periode waarover informatie gezocht wordt, volgens de ISO 8601 standaard, bijvoorbeeld 2018-07-16T09:20:00+02:00. Dient gebruikt te worden in combinatie met datumType.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "datumTot",
+          "in" : "query",
+          "description" : "De tot-datumtijd van de periode waarover informatie gezocht wordt, volgens de ISO 8601 standaard, bijvoorbeeld 2013-07-16T10:00:00+01:00. Dient gebruikt te worden in combinatie met datumType.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "offset",
+          "in" : "query",
+          "description" : "De offset geeft aan vanaf welke record het resultaat van de query wordt teruggeven.",
+          "required" : false,
+          "type" : "integer",
+          "default" : 0
+        }, {
+          "name" : "limiet",
+          "in" : "query",
+          "description" : "Maximum aantal gebiedsinformatie-aanvragen die in het antwoord teruggegeven mogen worden. Het maximum wordt door het systeem begrensd.",
+          "required" : false,
+          "type" : "integer",
+          "default" : 50
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "geldig request",
+            "schema" : {
+              "$ref" : "#/definitions/BeheerdersinformatieLeveringPagedResponse"
+            }
+          },
+          "400" : {
+            "description" : "ongeldig request, reden van ongeldigheid te vinden in  de 'reason' eigenschap",
+            "schema" : {
+              "$ref" : "#/definitions/FoutMelding"
+            }
+          },
+          "401" : {
+            "description" : "gebruiker is niet geidentificeerd"
+          },
+          "403" : {
+            "description" : "gebruiker heeft niet de juiste rechten om dit verzoek uit te voeren"
+          },
+          "404" : {
+            "description" : "beheerdersinformatielevering behorende bij de beheerdersinformatie-aanvraag is niet gevonden",
+            "schema" : {
+              "$ref" : "#/definitions/FoutMelding"
+            }
+          }
+        },
+        "x-camelContextId" : "netbeheerderAPI",
+        "x-routeId" : "v2bi_getLeveringen"
+      }
+    },
+    "/v2/gebiedsinformatieAanvragen/{giAanvraagId}/beheerdersinformatieAanvragen/{biAanvraagId}/beheerdersinformatieLevering/zip" : {
+      "get" : {
+        "tags" : [ "v2/gebiedsinformatieAanvragen" ],
+        "summary" : "Opvragen beheerdersinformatie-levering zoals deze voor belanghebbende netbeheerder is uitgeleverd bij de aangegeven\n                    beheerdersinformatie-aanvraag.\n                ",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "giAanvraagId",
+          "in" : "path",
+          "description" : "Unieke identificatie van de gebiedsinformatie-aanvraag (UUID)",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "biAanvraagId",
+          "in" : "path",
+          "description" : "Unieke identificatie van de beheerdersinformatie-aanvraag (UUID).",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "geldig request"
+          },
+          "400" : {
+            "description" : "ongeldig request, reden van ongeldigheid te vinden in  de 'reason' eigenschap",
+            "schema" : {
+              "$ref" : "#/definitions/FoutMelding"
+            }
+          },
+          "401" : {
+            "description" : "gebruiker is niet geidentificeerd"
+          },
+          "403" : {
+            "description" : "gebruiker heeft niet de juiste rechten om dit verzoek uit te voeren"
+          },
+          "404" : {
+            "description" : "beheerdersinformatie-aanvraag behorende bij de gebiedsinformatie-aanvraag is niet gevonden",
+            "schema" : {
+              "$ref" : "#/definitions/FoutMelding"
+            }
+          },
+          "405" : {
+            "description" : "de beheerdersinformatie-aanvraag is nog niet bevestigd of er is al beheerdersinformatie voor deze beheerdersinformatie-aanvraag geleverd",
+            "schema" : {
+              "$ref" : "#/definitions/FoutMelding"
+            }
+          },
+          "410" : {
+            "description" : "de geleverde beheerdersinformatie kan niet meer worden opgehaald; de aanvraagdatum voor gebiedsinformatie is langer dan 20 werkdagen geleden",
+            "schema" : {
+              "$ref" : "#/definitions/FoutMelding"
+            }
+          }
+        },
+        "x-camelContextId" : "netbeheerderAPI",
+        "x-routeId" : "v2bi_getLeveringen_zip"
+      }
+    },
+    "/v2/gebiedsinformatieAanvragen/{giAanvraagId}/gebiedsinformatieLeveringen" : {
+      "get" : {
+        "tags" : [ "v2/gebiedsinformatieAanvragen" ],
+        "summary" : "Zoeken gebiedsinformatie-leveringen bij gebiedsinformatie-aanvragen die voldoen aan bepaalde selectiecriteria.\n                ",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "giAanvraagId",
+          "in" : "path",
+          "description" : "Unieke identificatie van de gebiedsinformatie-aanvraag (UUID). Wildcard '-' voor alle gebiedsinformatie-aanvragen.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "datumType",
+          "in" : "query",
+          "description" : "Bij 'mutatieDatum': gebiedsinformatie-leveringen die gemuteerd zijn binnen de aangegeven periode.",
+          "required" : false,
+          "type" : "string",
+          "enum" : [ "mutatieDatum" ]
+        }, {
+          "name" : "datumVanaf",
+          "in" : "query",
+          "description" : "De vanaf-datumtijd van de periode waarover informatie gezocht wordt, volgens de ISO 8601 standaard, bijvoorbeeld 2018-07-16T09:20:00+02:00. Dient gebruikt te worden in combinatie met datumType.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "datumTot",
+          "in" : "query",
+          "description" : "De tot-datumtijd van de periode waarover informatie gezocht wordt, volgens de ISO 8601 standaard, bijvoorbeeld 2013-07-16T10:00:00+01:00.  Dient gebruikt te worden in combinatie met datumType.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "offset",
+          "in" : "query",
+          "description" : "De offset geeft aan vanaf welke record het resultaat van de query wordt teruggeven.",
+          "required" : false,
+          "type" : "integer",
+          "default" : 0
+        }, {
+          "name" : "limiet",
+          "in" : "query",
+          "description" : "Maximum aantal gebiedsinformatie-aanvragen die in het antwoord teruggegeven mogen worden. Het maximum wordt door het systeem begrensd.",
+          "required" : false,
+          "type" : "integer",
+          "default" : 50
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Output type",
+            "schema" : {
+              "$ref" : "#/definitions/GebiedsinformatieLeveringPagedResponse"
+            }
+          },
+          "400" : {
+            "description" : "ongeldig request, reden van ongeldigheid te vinden in  de 'reason' eigenschap",
+            "schema" : {
+              "$ref" : "#/definitions/FoutMelding"
+            }
+          },
+          "401" : {
+            "description" : "gebruiker is niet geidentificeerd"
+          },
+          "403" : {
+            "description" : "gebruiker heeft niet de juiste rechten om dit verzoek uit te voeren"
+          },
+          "404" : {
+            "description" : "geen gebiedsinformatie-leveringen gevonden",
+            "schema" : {
+              "$ref" : "#/definitions/FoutMelding"
+            }
+          }
+        },
+        "x-camelContextId" : "netbeheerderAPI",
+        "x-routeId" : "v2gia_gil_getList"
+      }
+    },
+    "/v2/gebiedsinformatieAanvragen/{giAanvraagId}/terugmeldingen" : {
+      "get" : {
+        "tags" : [ "v2/gebiedsinformatieAanvragen" ],
+        "summary" : "Opvragen terugmeldingen voor de aangegeven gebiedsinformatie-aanvraag.",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "klicMeldnummer",
+          "in" : "query",
+          "description" : "Unieke identificatie van de TMS terugmelding. Wildcard '-' voor alle TMS Terugmeldingen.",
+          "required" : false,
+          "type" : "string",
+          "default" : "-"
+        }, {
+          "name" : "giAanvraagId",
+          "in" : "path",
+          "description" : "Unieke identificatie van de gebiedsinformatie-aanvraag (UUID). Wildcard '-' voor alle gebiedsinformatie-aanvragen.",
+          "required" : true,
+          "type" : "string",
+          "default" : "-"
+        }, {
+          "name" : "tmKlicTerugmeldStatus",
+          "in" : "query",
+          "description" : "Klic Status (zie waardelijst).",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "datumType",
+          "in" : "query",
+          "description" : "Bij 'datumAangemaakt': terugmeldingen die aangemaakt zijn binnen de aangegeven periode.",
+          "required" : false,
+          "type" : "string",
+          "enum" : [ "datumAangemaakt" ]
+        }, {
+          "name" : "datumVanaf",
+          "in" : "query",
+          "description" : "De vanaf-datumtijd van de periode waarover informatie gezocht wordt, volgens de ISO 8601 standaard, bijvoorbeeld 2018-07-16T09:20:00+02:00.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "datumTot",
+          "in" : "query",
+          "description" : "De tot-datumtijd van de periode waarover informatie gezocht wordt, volgens de ISO 8601 standaard, bijvoorbeeld 2013-07-16T10:00:00+01:00.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "meldingsNummerVolledig",
+          "in" : "query",
+          "description" : "Volledig terugmeldingsnummer filter.",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "offset",
+          "in" : "query",
+          "description" : "De offset geeft aan vanaf welke record het resultaat van de query wordt teruggeven.",
+          "required" : false,
+          "type" : "integer",
+          "default" : 0
+        }, {
+          "name" : "limiet",
+          "in" : "query",
+          "description" : "Maximum aantal terugmeldingen die in het antwoord teruggegeven mogen worden. Het maximum wordt door het systeem begrensd.",
+          "required" : false,
+          "type" : "integer",
+          "default" : 50
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "geldig request",
+            "schema" : {
+              "$ref" : "#/definitions/TerugmeldingenPagedResponse"
+            }
+          },
+          "400" : {
+            "description" : "ongeldig request, reden van ongeldigheid te vinden in  de 'reason' eigenschap",
+            "schema" : {
+              "$ref" : "#/definitions/FoutMelding"
+            }
+          },
+          "401" : {
+            "description" : "gebruiker is niet geidentificeerd"
+          },
+          "403" : {
+            "description" : "gebruiker heeft niet de juiste rechten om dit verzoek uit te voeren"
+          }
+        },
+        "x-camelContextId" : "netbeheerderAPI",
+        "x-routeId" : "v2terugmeldingen_all_query"
+      }
+    },
+    "/v2/gebiedsinformatieAanvragen/{giAanvraagId}/terugmeldingen/{terugmeldingId}" : {
+      "get" : {
+        "tags" : [ "v2/gebiedsinformatieAanvragen" ],
+        "summary" : "Opvragen specifieke tms terugmelding.",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "giAanvraagId",
+          "in" : "path",
+          "description" : "Unieke identificatie van de gebiedsinformatie-aanvraag (UUID). Wildcard '-' voor alle gebiedsinformatie-aanvragen.",
+          "required" : true,
+          "type" : "string",
+          "default" : "-"
+        }, {
+          "name" : "terugmeldingId",
+          "in" : "path",
+          "description" : "Unieke identificatie van de TMS terugmelding.",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "geldig request",
+            "schema" : {
+              "$ref" : "#/definitions/TerugmeldingInformatie"
+            }
+          },
+          "400" : {
+            "description" : "ongeldig request, reden van ongeldigheid te vinden in  de 'reason' eigenschap",
+            "schema" : {
+              "$ref" : "#/definitions/FoutMelding"
+            }
+          },
+          "401" : {
+            "description" : "gebruiker is niet geidentificeerd"
+          },
+          "403" : {
+            "description" : "gebruiker heeft niet de juiste rechten om dit verzoek uit te voeren"
+          },
+          "404" : {
+            "description" : "terugmelding is niet gevonden",
+            "schema" : {
+              "$ref" : "#/definitions/FoutMelding"
+            }
+          }
+        },
+        "x-camelContextId" : "netbeheerderAPI",
+        "x-routeId" : "v2terugmelding_query"
+      }
+    },
+    "/v2/gebiedsinformatieAanvragen/{giAanvraagId}/terugmeldingen/{terugmeldingId}/beheerdersTerugmeldingen" : {
+      "get" : {
+        "tags" : [ "v2/gebiedsinformatieAanvragen" ],
+        "summary" : "Opvragen terugmeldingen voor de aangegeven gebiedsinformatie-aanvraag.",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "giAanvraagId",
+          "in" : "path",
+          "description" : "Unieke identificatie van de gebiedsinformatie-aanvraag (UUID). Wildcard '-' voor alle gebiedsinformatie-aanvragen.",
+          "required" : true,
+          "type" : "string",
+          "default" : "-"
+        }, {
+          "name" : "terugmeldingId",
+          "in" : "path",
+          "description" : "Unieke identificatie van de TMS terugmelding. Wildcard '-' voor alle TMS Terugmeldingen.",
+          "required" : true,
+          "type" : "string",
+          "default" : "-"
+        }, {
+          "name" : "tmNotificatieStatus",
+          "in" : "query",
+          "description" : "Notificatie Status (zie waardelijst).",
+          "required" : false,
+          "type" : "string",
+          "enum" : [ "tnsBevestigingOntvangen", "tnsNietGenotificeerd", "tnsOpen" ]
+        }, {
+          "name" : "bronhoudercode",
+          "in" : "query",
+          "description" : "Unieke code van de bronhouder (netbeheerder).",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "offset",
+          "in" : "query",
+          "description" : "De offset geeft aan vanaf welke record het resultaat van de query wordt teruggeven.",
+          "required" : false,
+          "type" : "integer",
+          "default" : 0
+        }, {
+          "name" : "limiet",
+          "in" : "query",
+          "description" : "Maximum aantal terugmeldingen die in het antwoord teruggegeven mogen worden. Het maximum wordt door het systeem begrensd.",
+          "required" : false,
+          "type" : "integer",
+          "default" : 50
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "geldig request",
+            "schema" : {
+              "$ref" : "#/definitions/BeheerdersTerugmeldingPagedResponse"
+            }
+          },
+          "400" : {
+            "description" : "ongeldig request, reden van ongeldigheid te vinden in  de 'reason' eigenschap",
+            "schema" : {
+              "$ref" : "#/definitions/FoutMelding"
+            }
+          },
+          "401" : {
+            "description" : "gebruiker is niet geidentificeerd"
+          },
+          "403" : {
+            "description" : "gebruiker heeft niet de juiste rechten om dit verzoek uit te voeren"
+          }
+        },
+        "x-camelContextId" : "netbeheerderAPI",
+        "x-routeId" : "v2beheerdersterugmeldingen_query"
+      }
+    },
+    "/v2/gebiedsinformatieAanvragen/{giAanvraagId}/terugmeldingen/{terugmeldingId}/beheerdersTerugmeldingen/{beheerdersTerugmeldingId}" : {
+      "get" : {
+        "tags" : [ "v2/gebiedsinformatieAanvragen" ],
+        "summary" : "Opvragen specifieke tms  beheerders terugmelding.",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "giAanvraagId",
+          "in" : "path",
+          "description" : "Unieke identificatie van de gebiedsinformatie-aanvraag (UUID). Wildcard '-' voor alle gebiedsinformatie-aanvragen.",
+          "required" : true,
+          "type" : "string",
+          "default" : "-"
+        }, {
+          "name" : "terugmeldingId",
+          "in" : "path",
+          "description" : "Unieke identificatie van de TMS terugmelding. Wildcard '-' voor alle TMS Terugmeldingen.",
+          "required" : true,
+          "type" : "string",
+          "default" : "-"
+        }, {
+          "name" : "beheerdersTerugmeldingId",
+          "in" : "path",
+          "description" : "Unieke identificatie van de TMS beheerders terugmelding.",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "geldig request",
+            "schema" : {
+              "$ref" : "#/definitions/BeheerdersTerugmelding"
+            }
+          },
+          "400" : {
+            "description" : "ongeldig request, reden van ongeldigheid te vinden in  de 'reason' eigenschap",
+            "schema" : {
+              "$ref" : "#/definitions/FoutMelding"
+            }
+          },
+          "401" : {
+            "description" : "gebruiker is niet geidentificeerd"
+          },
+          "403" : {
+            "description" : "gebruiker heeft niet de juiste rechten om dit verzoek uit te voeren"
+          },
+          "404" : {
+            "description" : "beheerdersterugmelding bij gebiedsinformatie-aanvraag is niet gevonden",
+            "schema" : {
+              "$ref" : "#/definitions/FoutMelding"
+            }
+          }
+        },
+        "x-camelContextId" : "netbeheerderAPI",
+        "x-routeId" : "v2beheerdersterugmelding_query"
+      },
+      "patch" : {
+        "tags" : [ "v2/gebiedsinformatieAanvragen" ],
+        "summary" : "Bijwerken terugmeldingen status voor de aangegeven gebiedsinformatie-aanvraag.",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "giAanvraagId",
+          "in" : "path",
+          "description" : "Unieke identificatie van de gebiedsinformatie-aanvraag (UUID). Wildcard '-' voor alle gebiedsinformatie-aanvragen.",
+          "required" : true,
+          "type" : "string",
+          "default" : "-"
+        }, {
+          "name" : "terugmeldingId",
+          "in" : "path",
+          "description" : "Unieke identificatie van de TMS terugmelding. Wildcard '-' voor alle TMS Terugmeldingen.",
+          "required" : true,
+          "type" : "string",
+          "default" : "-"
+        }, {
+          "name" : "beheerdersTerugmeldingId",
+          "in" : "path",
+          "description" : "Unieke identificatie van de TMS beheerders terugmelding.",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "body",
+          "description" : "Uit te voeren operatie op de TMS terugmelding. (JSON) notificatieStatus: tnsBevestigingOntvangen, claimStatus: tcsGeclaimd, tcsAfgewezen, toegewezenStatus: ttsWeesToegewezen.",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/PatchTerugmeldingOperationImpl"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "geldig request"
+          },
+          "400" : {
+            "description" : "ongeldig request, reden van ongeldigheid te vinden in  de 'reason' eigenschap",
+            "schema" : {
+              "$ref" : "#/definitions/FoutMelding"
+            }
+          },
+          "401" : {
+            "description" : "gebruiker is niet geidentificeerd"
+          },
+          "403" : {
+            "description" : "gebruiker heeft niet de juiste rechten om dit verzoek uit te voeren"
+          },
+          "404" : {
+            "description" : "beheerdersterugmelding bij gebiedsinformatie-aanvraag is niet gevonden",
+            "schema" : {
+              "$ref" : "#/definitions/FoutMelding"
+            }
+          },
+          "405" : {
+            "description" : "de beheerdersterugmelding is nog niet bevestigd.",
+            "schema" : {
+              "$ref" : "#/definitions/FoutMelding"
+            }
+          }
+        },
+        "x-camelContextId" : "netbeheerderAPI",
+        "x-routeId" : "v2patchbeheerdersterugmelding_query"
+      }
+    },
+    "/v2/waardelijsten/biNotificatieStatussen/" : {
+      "get" : {
+        "tags" : [ "v2/waardelijsten" ],
+        "summary" : "Opvragen lijst met biNotificatieStatussen.",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Output type",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/BeheerdersInformatieNotificatieStatus"
+              }
+            }
+          }
+        },
+        "x-camelContextId" : "netbeheerderAPI",
+        "x-routeId" : "v2_cl_getAllBiNotificatieStatussen"
+      }
+    },
+    "/v2/waardelijsten/biNotificatieStatussen/{biNotificatieStatusId}" : {
+      "get" : {
+        "tags" : [ "v2/waardelijsten" ],
+        "summary" : "Opvragen gegevens van een specifieke biNotificatieStatus.",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "biNotificatieStatusId",
+          "in" : "path",
+          "description" : "Unieke identificatie van een biNotificatieStatus",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Output type",
+            "schema" : {
+              "$ref" : "#/definitions/BeheerdersInformatieNotificatieStatus"
+            }
+          },
+          "404" : {
+            "description" : "De biNotificatieStatus is niet bekend",
+            "schema" : {
+              "$ref" : "#/definitions/FoutMelding"
+            }
+          }
+        },
+        "x-camelContextId" : "netbeheerderAPI",
+        "x-routeId" : "v2_cl_getBiNotificatieStatus"
+      }
+    },
+    "/v2/waardelijsten/biProductieStatussen/" : {
+      "get" : {
+        "tags" : [ "v2/waardelijsten" ],
+        "summary" : "Opvragen lijst met biProductieStatussen.",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Output type",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/BeheerdersInformatieProductieStatus"
+              }
+            }
+          }
+        },
+        "x-camelContextId" : "netbeheerderAPI",
+        "x-routeId" : "v2_cl_getAllBiProductieStatussen"
+      }
+    },
+    "/v2/waardelijsten/biProductieStatussen/{biProductieStatusId}" : {
+      "get" : {
+        "tags" : [ "v2/waardelijsten" ],
+        "summary" : "Opvragen gegevens van een specifieke biProductieStatus.",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "biProductieStatusId",
+          "in" : "path",
+          "description" : "Unieke identificatie van een biProductieStatus",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Output type",
+            "schema" : {
+              "$ref" : "#/definitions/BeheerdersInformatieProductieStatus"
+            }
+          },
+          "404" : {
+            "description" : "De biProductieStatus is niet bekend",
+            "schema" : {
+              "$ref" : "#/definitions/FoutMelding"
+            }
+          }
+        },
+        "x-camelContextId" : "netbeheerderAPI",
+        "x-routeId" : "v2_cl_getBiProductieStatus"
+      }
+    },
+    "/v2/waardelijsten/giAanvraagStatussen/" : {
+      "get" : {
+        "tags" : [ "v2/waardelijsten" ],
+        "summary" : "Opvragen lijst met giAanvraagStatussen.",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Output type",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/GebiedsinformatieAanvraagStatus"
+              }
+            }
+          }
+        },
+        "x-camelContextId" : "netbeheerderAPI",
+        "x-routeId" : "v2_cl_getAllGebiedsinformatieAanvraagStatussen"
+      }
+    },
+    "/v2/waardelijsten/giAanvraagStatussen/{giAanvraagStatusId}" : {
+      "get" : {
+        "tags" : [ "v2/waardelijsten" ],
+        "summary" : "Opvragen gegevens van een specifieke giAanvraagStatus.",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "giAanvraagStatusId",
+          "in" : "path",
+          "description" : "Unieke identificatie van een giAanvraagStatus",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Output type",
+            "schema" : {
+              "$ref" : "#/definitions/GebiedsinformatieAanvraagStatus"
+            }
+          },
+          "404" : {
+            "description" : "De biGebiedsinformatieAanvraagStatus is niet bekend",
+            "schema" : {
+              "$ref" : "#/definitions/FoutMelding"
+            }
+          }
+        },
+        "x-camelContextId" : "netbeheerderAPI",
+        "x-routeId" : "v2_cl_getGebiedsinformatieAanvraagStatus"
+      }
+    },
+    "/v2/waardelijsten/tmClaimStatussen/" : {
+      "get" : {
+        "tags" : [ "v2/waardelijsten" ],
+        "summary" : "Opvragen lijst met tmClaimStatussen.",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Output type",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/TmsClaimStatusses"
+              }
+            }
+          }
+        },
+        "x-camelContextId" : "netbeheerderAPI",
+        "x-routeId" : "cl_getTmsClaimStatussen"
+      }
+    },
+    "/v2/waardelijsten/tmClaimStatussen/{tmClaimStatusId}" : {
+      "get" : {
+        "tags" : [ "v2/waardelijsten" ],
+        "summary" : "Opvragen gegevens van een specifieke tmClaimStatus.",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "tmClaimStatusId",
+          "in" : "path",
+          "description" : "Unieke identificatie van een tmClaimStatus",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Output type",
+            "schema" : {
+              "$ref" : "#/definitions/TmsClaimStatusses"
+            }
+          },
+          "404" : {
+            "description" : "De tmClaimStatus is niet bekend",
+            "schema" : {
+              "$ref" : "#/definitions/FoutMelding"
+            }
+          }
+        },
+        "x-camelContextId" : "netbeheerderAPI",
+        "x-routeId" : "cl_getTmsClaimStatus"
+      }
+    },
+    "/v2/waardelijsten/tmKlicTerugmeldStatussen/" : {
+      "get" : {
+        "tags" : [ "v2/waardelijsten" ],
+        "summary" : "Opvragen lijst met tmKlicTerugmeldStatussen.",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Output type",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/TmsKlicStatusses"
+              }
+            }
+          }
+        },
+        "x-camelContextId" : "netbeheerderAPI",
+        "x-routeId" : "cl_getTmsKlicStatussen"
+      }
+    },
+    "/v2/waardelijsten/tmKlicTerugmeldStatussen/{tmKlicTerugmeldStatusId}" : {
+      "get" : {
+        "tags" : [ "v2/waardelijsten" ],
+        "summary" : "Opvragen gegevens van een specifieke tmKlicTerugmeldStatus.",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "tmKlicTerugmeldStatusId",
+          "in" : "path",
+          "description" : "Unieke identificatie van een tmKlicTerugmeldStatus",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Output type",
+            "schema" : {
+              "$ref" : "#/definitions/TmsKlicStatusses"
+            }
+          },
+          "404" : {
+            "description" : "De tmKlicTerugmeldStatus is niet bekend",
+            "schema" : {
+              "$ref" : "#/definitions/FoutMelding"
+            }
+          }
+        },
+        "x-camelContextId" : "netbeheerderAPI",
+        "x-routeId" : "cl_getTmsKlicStatus"
+      }
+    },
+    "/v2/waardelijsten/tmNotificatieStatussen/" : {
+      "get" : {
+        "tags" : [ "v2/waardelijsten" ],
+        "summary" : "Opvragen lijst met tmNotificatieStatussen.",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Output type",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/TmsNotificatieStatusses"
+              }
+            }
+          }
+        },
+        "x-camelContextId" : "netbeheerderAPI",
+        "x-routeId" : "cl_getTmsNotificatieStatussen"
+      }
+    },
+    "/v2/waardelijsten/tmNotificatieStatussen/{tmNotificatieStatusId}" : {
+      "get" : {
+        "tags" : [ "v2/waardelijsten" ],
+        "summary" : "Opvragen gegevens van een specifieke tmNotificatieStatus.",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "tmNotificatieStatusId",
+          "in" : "path",
+          "description" : "Unieke identificatie van een tmNotificatieStatus",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Output type",
+            "schema" : {
+              "$ref" : "#/definitions/TmsNotificatieStatusses"
+            }
+          },
+          "404" : {
+            "description" : "De tmNotificatieStatus is niet bekend",
+            "schema" : {
+              "$ref" : "#/definitions/FoutMelding"
+            }
+          }
+        },
+        "x-camelContextId" : "netbeheerderAPI",
+        "x-routeId" : "cl_getTmsNotificatieStatus"
+      }
+    },
+    "/v2/waardelijsten/tmToegewezenStatussen/" : {
+      "get" : {
+        "tags" : [ "v2/waardelijsten" ],
+        "summary" : "Opvragen lijst met tmToegewezenStatussen.",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Output type",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/TmsToegewezenStatusses"
+              }
+            }
+          }
+        },
+        "x-camelContextId" : "netbeheerderAPI",
+        "x-routeId" : "cl_getTmsToegewezenStatussen"
+      }
+    },
+    "/v2/waardelijsten/tmToegewezenStatussen/{tmToegewezenStatusId}" : {
+      "get" : {
+        "tags" : [ "v2/waardelijsten" ],
+        "summary" : "Opvragen gegevens van een specifieke tmToegewezenStatus.",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "tmToegewezenStatusId",
+          "in" : "path",
+          "description" : "Unieke identificatie van een tmToegewezenStatus",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Output type",
+            "schema" : {
+              "$ref" : "#/definitions/TmsToegewezenStatusses"
+            }
+          },
+          "404" : {
+            "description" : "De tmToegewezenStatus is niet bekend",
+            "schema" : {
+              "$ref" : "#/definitions/FoutMelding"
+            }
+          }
+        },
+        "x-camelContextId" : "netbeheerderAPI",
+        "x-routeId" : "cl_getTmsToegewezenStatus"
+      }
+    }
+  },
+  "definitions" : {
+    "AdresseerbaarObject" : {
+      "type" : "object",
+      "required" : [ "postcode" ],
+      "properties" : {
+        "BAGid" : {
+          "type" : "string"
+        },
+        "openbareRuimteNaam" : {
+          "type" : "string",
+          "description" : "OpenbareRuimteNaam van het huisaansluiting adres"
+        },
+        "huisnummer" : {
+          "type" : "string",
+          "description" : "Huisnummer van het huisaansluiting adres"
+        },
+        "huisletter" : {
+          "type" : "string",
+          "description" : "Huisletter van het huisaansluiting adres"
+        },
+        "huisnummertoevoeging" : {
+          "type" : "string",
+          "description" : "Huisnummertoevoeging van het huisaansluiting adres"
+        },
+        "woonplaatsNaam" : {
+          "type" : "string"
+        },
+        "postcode" : {
+          "type" : "string",
+          "description" : "Postcode van het huisaansluiting adres"
+        }
+      },
+      "description" : "Huisaansluiting adres"
+    },
+    "BezoekAdres" : {
+      "type" : "object",
+      "required" : [ "postcode", "woonplaatsNaam" ],
+      "properties" : {
+        "BAGid" : {
+          "type" : "string",
+          "description" : "Unieke identificatie van het bezoekadres in BAG"
+        },
+        "openbareRuimteNaam" : {
+          "type" : "string",
+          "description" : "OpenbareRuimteNaam van het bezoekadres"
+        },
+        "huisnummer" : {
+          "type" : "string",
+          "description" : "Huisnummer van het bezoekadres. Verplicht indien van toepassing en geen postbus is opgegeven"
+        },
+        "huisletter" : {
+          "type" : "string",
+          "description" : "Huisletter van het bezoekadres. Verplicht indien van toepassing en geen postbus is opgegeven"
+        },
+        "huisnummertoevoeging" : {
+          "type" : "string",
+          "description" : "Huisnummertoevoeging van het bezoekadres. Verplicht indien van toepassing en geen postbus is opgegeven"
+        },
+        "woonplaatsNaam" : {
+          "type" : "string",
+          "description" : "Plaats van het bezoekadres"
+        },
+        "postcode" : {
+          "type" : "string",
+          "description" : "Postcode van het bezoekadres"
+        },
+        "landcode" : {
+          "type" : "string",
+          "description" : "Landcode van het bezoekadres (zie waardelijst)"
+        }
+      },
+      "description" : "Adresgegevens bezoekadres"
+    },
+    "Opdrachtgever" : {
+      "type" : "object",
+      "required" : [ "contactpersoon", "organisatie" ],
+      "properties" : {
+        "contactpersoon" : {
+          "description" : "Contactgegevens van de opdrachtgever",
+          "$ref" : "#/definitions/Contact"
+        },
+        "organisatie" : {
+          "description" : "Organisatiegegevens van de opdrachtgever",
+          "$ref" : "#/definitions/OrganisatieOpdrachtgever"
+        }
+      },
+      "description" : "Gegevens van de opdrachtgever"
+    },
+    "Crs" : {
+      "type" : "object",
+      "properties" : {
+        "type" : {
+          "type" : "string",
+          "enum" : [ "name", "link" ]
+        },
+        "properties" : {
+          "type" : "object",
+          "additionalProperties" : {
+            "type" : "object"
+          }
+        }
+      }
+    },
+    "ExtraContact" : {
+      "type" : "object",
+      "required" : [ "email", "naam" ],
+      "properties" : {
+        "naam" : {
+          "type" : "string",
+          "description" : "Naam"
+        },
+        "telefoon" : {
+          "type" : "string",
+          "description" : "Telefoonnummer"
+        },
+        "email" : {
+          "type" : "string",
+          "description" : "Email"
+        }
+      },
+      "description" : "Extra contactgegevens"
+    },
+    "PostbusAdres" : {
+      "type" : "object",
+      "required" : [ "postcode" ],
+      "properties" : {
+        "postbusnummer" : {
+          "type" : "string",
+          "description" : "Postbusnummer van het postbusadres"
+        },
+        "woonplaatsNaam" : {
+          "type" : "string",
+          "description" : "Woonplaats naam van het postbusadres"
+        },
+        "postcode" : {
+          "type" : "string",
+          "description" : "Postcode van het postbusadres"
+        },
+        "landcode" : {
+          "type" : "string",
+          "description" : "Landcode van het postbusadres (zie waardelijst)"
+        }
+      },
+      "description" : "Adresgegevens postbusadres"
+    },
+    "Contact" : {
+      "type" : "object",
+      "required" : [ "email", "naam" ],
+      "properties" : {
+        "naam" : {
+          "type" : "string",
+          "description" : "Naam"
+        },
+        "telefoon" : {
+          "type" : "string",
+          "description" : "Telefoonnummer"
+        },
+        "email" : {
+          "type" : "string",
+          "description" : "Email"
+        }
+      },
+      "description" : "Contactgegevens"
+    },
+    "Aanvrager" : {
+      "type" : "object",
+      "required" : [ "contactpersoon", "organisatie" ],
+      "properties" : {
+        "contactpersoon" : {
+          "description" : "Contactgegevens van de aanvrager",
+          "$ref" : "#/definitions/Contact"
+        },
+        "extraContact" : {
+          "description" : "Extra contactgegevens van de aanvrager",
+          "$ref" : "#/definitions/ExtraContact"
+        },
+        "organisatie" : {
+          "description" : "Organisatiegegevens van de aanvrager",
+          "$ref" : "#/definitions/OrganisatieAanvrager"
+        }
+      },
+      "description" : "Gegevens van de aanvrager"
+    },
+    "GebiedsinformatieAanvraag" : {
+      "type" : "object",
+      "required" : [ "aanvraagDatum", "aanvraagSoort", "giAanvraagId", "klicMeldnummer", "mutatieDatum", "ordernummer" ],
+      "properties" : {
+        "giAanvraagId" : {
+          "type" : "string",
+          "description" : "Unieke identificatie van de gebiedsinformatie-aanvraag (UUID)"
+        },
+        "ordernummer" : {
+          "type" : "string",
+          "description" : "Het ordernummer van de gebiedsinformatie-aanvraag (UUID)"
+        },
+        "positienummer" : {
+          "type" : "string",
+          "description" : "Regelnummer verkooporder"
+        },
+        "klicMeldnummer" : {
+          "type" : "string",
+          "description" : "Het KLIC meldnummer"
+        },
+        "aanvrager" : {
+          "description" : "Gegevens van de aanvrager",
+          "$ref" : "#/definitions/Aanvrager"
+        },
+        "referentie" : {
+          "type" : "string",
+          "description" : "Referentie van de gebiedsinformatie-aanvrager"
+        },
+        "opdrachtgever" : {
+          "description" : "Referentie van de gebiedsinformatie-aanvrager",
+          "$ref" : "#/definitions/Opdrachtgever"
+        },
+        "aanvraagSoort" : {
+          "type" : "string",
+          "description" : "Soort gebiedsinformatie-aanvraag (URI, zie waardelijst)"
+        },
+        "aanvraagDatum" : {
+          "type" : "string",
+          "description" : "De datumtijd waarop de gebiedsinformatie-aanvraag ontvangen is"
+        },
+        "mutatieDatum" : {
+          "type" : "string",
+          "description" : "De datumtijd waarop de gebiedsinformatie-aanvraag voor het laatst gemuteerd is"
+        },
+        "giAanvraagStatus" : {
+          "type" : "string",
+          "description" : "Status van de gebiedsinformatie-aanvraag (zie waardelijst)"
+        },
+        "voorbereidingCoordinatieCivieleWerken" : {
+          "type" : "boolean",
+          "description" : "Voorbereiding verzoek tot coordinatie civiele werken"
+        },
+        "voorbereidingMedegebruikFysiekeInfrastructuur" : {
+          "type" : "boolean",
+          "description" : "Voorbereiding verzoek tot medegebruik fysieke infrastructuur"
+        },
+        "soortWerkzaamheden" : {
+          "type" : "array",
+          "description" : "Soort graafwerkzaamheden (zie waardelijst)",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "omschrijvingWerkzaamheden" : {
+          "type" : "string",
+          "description" : "Omschrijving van de werkzaamheden"
+        },
+        "locatieWerkzaamheden" : {
+          "description" : "Het adres of dichtstbijzijnd adres van de locatie van de werkzaamheden",
+          "$ref" : "#/definitions/AdresseerbaarObject"
+        },
+        "locatieOmschrijving" : {
+          "type" : "string",
+          "description" : "Omschrijving van de locatie van de werkzaamheden"
+        },
+        "startDatum" : {
+          "type" : "string",
+          "description" : "De startdatum van de werkzaamheden"
+        },
+        "eindDatum" : {
+          "type" : "string",
+          "description" : "De einddatum van de werkzaamheden"
+        },
+        "huisaansluitingAdressen" : {
+          "type" : "array",
+          "description" : "Lijst met huisaansluiting adressen welke gevraagd worden",
+          "items" : {
+            "$ref" : "#/definitions/AdresseerbaarObject"
+          }
+        },
+        "graafPolygoon" : {
+          "description" : "Het gebied (polygoon) waarbinnen gegraven gaat worden",
+          "$ref" : "#/definitions/Polygon"
+        },
+        "orientatiePolygoon" : {
+          "description" : "Het gebied (polygoon) waarover een orientatieverzoek is aangevraagd",
+          "$ref" : "#/definitions/Polygon"
+        },
+        "informatiePolygoon" : {
+          "description" : "Het gebied (polygoon) waarover gebiedsinformatie gevraagd wordt",
+          "$ref" : "#/definitions/Polygon"
+        }
+      },
+      "description" : "De gebiedsinformatie-aanvraag",
+      "x-className" : {
+        "type" : "string",
+        "format" : "nl.kadaster.klic.model.api.gebiedsinformatieaanvraag.v2.GebiedsinformatieAanvraag"
+      }
+    },
+    "OrganisatieOpdrachtgever" : {
+      "type" : "object",
+      "required" : [ "naam" ],
+      "properties" : {
+        "naam" : {
+          "type" : "array",
+          "description" : "Naam",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "kvkNummer" : {
+          "type" : "string",
+          "description" : "kvkNummer"
+        },
+        "bezoekAdres" : {
+          "description" : "Bezoekadres",
+          "$ref" : "#/definitions/BezoekAdres"
+        },
+        "postbusAdres" : {
+          "description" : "Postbusadres",
+          "$ref" : "#/definitions/PostbusAdres"
+        }
+      },
+      "description" : "Organisatiegegevens van de opdrachtgever"
+    },
+    "GebiedsinformatieAanvraagPagedResponse" : {
+      "type" : "object",
+      "required" : [ "_links", "gebiedsinformatieAanvragen" ],
+      "properties" : {
+        "_links" : {
+          "type" : "object",
+          "description" : "Links naar self en/of volgende pagina",
+          "readOnly" : true,
+          "additionalProperties" : {
+            "$ref" : "#/definitions/Link"
+          }
+        },
+        "gebiedsinformatieAanvragen" : {
+          "type" : "array",
+          "description" : "Een lijst van GebiedsinformatieAanvragen",
+          "readOnly" : true,
+          "items" : {
+            "$ref" : "#/definitions/GebiedsinformatieAanvraag"
+          }
+        }
+      },
+      "description" : "Gepagineerde response voor GebiedsinformatieAanvraag",
+      "x-className" : {
+        "type" : "string",
+        "format" : "nl.kadaster.klic.model.api.gebiedsinformatieaanvraag.v2.pagination.GebiedsinformatieAanvraagPagedResponse"
+      }
+    },
+    "OrganisatieAanvrager" : {
+      "type" : "object",
+      "required" : [ "naam" ],
+      "properties" : {
+        "naam" : {
+          "type" : "array",
+          "description" : "Naam",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "kvkNummer" : {
+          "type" : "string",
+          "description" : "kvkNummer"
+        },
+        "bezoekAdres" : {
+          "description" : "Bezoekadres",
+          "$ref" : "#/definitions/BezoekAdres"
+        },
+        "postbusAdres" : {
+          "description" : "Postbusadres",
+          "$ref" : "#/definitions/PostbusAdres"
+        },
+        "relatienummer" : {
+          "type" : "string",
+          "description" : "Relatienummer"
+        }
+      },
+      "description" : "Organisatiegegevens van de aanvrager"
+    },
+    "Polygon" : {
+      "type" : "object",
+      "properties" : {
+        "crs" : {
+          "$ref" : "#/definitions/Crs"
+        },
+        "bbox" : {
+          "type" : "array",
+          "items" : {
+            "type" : "number",
+            "format" : "double"
+          }
+        },
+        "coordinates" : {
+          "type" : "array",
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/definitions/LngLatAlt"
+            }
+          }
+        }
+      }
+    },
+    "Link" : {
+      "type" : "object",
+      "properties" : {
+        "href" : {
+          "type" : "string",
+          "xml" : {
+            "attribute" : true
+          }
+        }
+      }
+    },
+    "LngLatAlt" : {
+      "type" : "object",
+      "properties" : {
+        "longitude" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "latitude" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "altitude" : {
+          "type" : "number",
+          "format" : "double"
+        }
+      }
+    },
+    "FoutMelding" : {
+      "type" : "object",
+      "required" : [ "gebruikerMelding", "meldingCode", "ontwikkelaarMelding", "status" ],
+      "properties" : {
+        "status" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "http status code"
+        },
+        "meldingCode" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Applicatiemelding code"
+        },
+        "attribuut" : {
+          "type" : "string",
+          "description" : "Attribuut waar de melding over gaat"
+        },
+        "gebruikerMelding" : {
+          "type" : "string",
+          "description" : "Applicatiemelding voor een gebruiker"
+        },
+        "ontwikkelaarMelding" : {
+          "type" : "string",
+          "description" : "Applicatiemelding voor een ontwikkelaar"
+        },
+        "meerInformatie" : {
+          "type" : "string",
+          "description" : "URI naar de API documentatie waar de foutmelding verder uitgelegd wordt voor een ontwikkelaar"
+        }
+      },
+      "description" : "Uitgebreide foutmelding die in de http body wordt gemeld (als aanvulling op de http status code)",
+      "x-className" : {
+        "type" : "string",
+        "format" : "nl.kadaster.klic.integration.client.FoutMelding"
+      }
+    },
+    "BeheerdersinformatieAanvraag" : {
+      "type" : "object",
+      "required" : [ "biAanvraagId", "giAanvraagId" ],
+      "properties" : {
+        "biAanvraagId" : {
+          "type" : "string",
+          "description" : "Unieke identificatie van de beheerdersinformatie-aanvraag (UUID)"
+        },
+        "giAanvraagId" : {
+          "type" : "string",
+          "description" : "Unieke identificatie van de gebiedsinformatie-aanvraag (UUID)"
+        },
+        "bronhoudercode" : {
+          "type" : "string",
+          "description" : "De bronhoudercode van de belanghebbende netbeheerder van de beheerdersinformatie-aanvraag."
+        },
+        "biNotificatieStatus" : {
+          "type" : "string",
+          "description" : "Status betreffende het notificeren van een netbeheerder om beheerdersinformatie samen te stellen (zie waardelijst)."
+        },
+        "biProductieStatus" : {
+          "type" : "string",
+          "description" : "Status betreffende het produceren van beheerdersinformatie"
+        },
+        "datumGenotificeerd" : {
+          "type" : "string",
+          "description" : "De datumtijd waarop de netbeheerder genotificeerd is."
+        },
+        "datumBevestigingOntvangen" : {
+          "type" : "string",
+          "description" : "De datumtijd waarop de (decentrale) netbeheerder de ontvangst van de beheerdersinformatie-aanvraag bevestigd."
+        },
+        "mutatieDatum" : {
+          "type" : "string",
+          "description" : "De datumtijd waarop de beheerdersinformatie-aanvraag voor het laatst gewijzigd is."
+        }
+      },
+      "description" : "De beheerdersinformatie-aanvraag",
+      "x-className" : {
+        "type" : "string",
+        "format" : "nl.kadaster.klic.model.api.gebiedsinformatieaanvraag.v2.BeheerdersinformatieAanvraag"
+      }
+    },
+    "BeheerdersinformatieAanvraagPagedResponse" : {
+      "type" : "object",
+      "required" : [ "_links", "beheerdersinformatieAanvragen" ],
+      "properties" : {
+        "_links" : {
+          "type" : "object",
+          "description" : "Links naar self en/of volgende pagina",
+          "readOnly" : true,
+          "additionalProperties" : {
+            "$ref" : "#/definitions/Link"
+          }
+        },
+        "beheerdersinformatieAanvragen" : {
+          "type" : "array",
+          "description" : "Een lijst van BeheerdersinformatieAanvragen",
+          "readOnly" : true,
+          "items" : {
+            "$ref" : "#/definitions/BeheerdersinformatieAanvraag"
+          }
+        }
+      },
+      "description" : "Gepagineerde response voor BeheerdersinformatieAanvraag objecten",
+      "x-className" : {
+        "type" : "string",
+        "format" : "nl.kadaster.klic.model.api.gebiedsinformatieaanvraag.v2.pagination.BeheerdersinformatieAanvraagPagedResponse"
+      }
+    },
+    "PatchOperation" : {
+      "type" : "object",
+      "properties" : {
+        "biNotificatieStatus" : {
+          "type" : "string"
+        }
+      },
+      "x-className" : {
+        "type" : "string",
+        "format" : "nl.kadaster.klic.service.PatchOperation"
+      }
+    },
+    "AanleverStap" : {
+      "type" : "object",
+      "properties" : {
+        "aanleverStapAanduiding" : {
+          "type" : "string",
+          "description" : "Aanduiding van de aanleverstap (zie waardelijst)."
+        },
+        "startDatum" : {
+          "type" : "string",
+          "description" : "De datumtijd waarop de aanleverstap is gestart."
+        },
+        "eindDatum" : {
+          "type" : "string",
+          "description" : "De datumtijd waarop de aanleverstap is beeindigd."
+        },
+        "stapStatus" : {
+          "type" : "string",
+          "description" : "De status van de aanleverstap."
+        },
+        "gebruiker" : {
+          "type" : "string",
+          "description" : "De naam van de gebruiker die de aanleverstap heeft geinitieerd."
+        },
+        "aanleverStapMeldingen" : {
+          "type" : "array",
+          "description" : "Lijst met aanleverstap meldingen.",
+          "items" : {
+            "$ref" : "#/definitions/AanleverStapMelding"
+          }
+        }
+      },
+      "description" : "Aanleverstap van een aanlevering"
+    },
+    "AanleverStatusHistorie" : {
+      "type" : "object",
+      "properties" : {
+        "mutatieDatum" : {
+          "type" : "string",
+          "description" : "De datumtijd waarop de aanleverstatus is gewijzigd."
+        },
+        "aanleverStatus" : {
+          "type" : "string",
+          "description" : "Status van de aanlevering (zie waardelijst)."
+        }
+      },
+      "description" : "Gegevens van een aanleverstatushistorie item"
+    },
+    "AanleverStapMelding" : {
+      "type" : "object",
+      "properties" : {
+        "gradatie" : {
+          "type" : "string",
+          "description" : "De gradatie van de aanleverstap melding."
+        },
+        "code" : {
+          "type" : "string",
+          "description" : "De code van de aanleverstap melding."
+        },
+        "omschrijving" : {
+          "type" : "string",
+          "description" : "De omschrijving van de aanleverstap melding."
+        },
+        "identificatie" : {
+          "type" : "string",
+          "description" : "De identificatie waar de aanleverstap melding betrekking op heeft."
+        },
+        "element" : {
+          "type" : "string",
+          "description" : "Het element waar de aanleverstap melding betrekking op heeft."
+        }
+      },
+      "description" : "Aanleverstap melding. Meldingen die gedurende de uitvoer van een stap kunnen worden gerapporteerd."
+    },
+    "Aanlevering" : {
+      "type" : "object",
+      "required" : [ "aanleveringId", "bronhoudercode", "informatieSoort" ],
+      "properties" : {
+        "aanleveringId" : {
+          "type" : "string",
+          "format" : "uuid",
+          "description" : "Unieke identificatie van de Aanlevering (UUID)"
+        },
+        "bronhoudercode" : {
+          "type" : "string",
+          "description" : "De bronhoudercode van de belanghebbende netbeheerder van de beheerdersinformatie."
+        },
+        "bronhouderNaam" : {
+          "type" : "string",
+          "description" : "De naam van de bronhouder (netbeheerder)"
+        },
+        "informatieSoort" : {
+          "type" : "string",
+          "description" : "Soort informatie"
+        },
+        "bestandsnaam" : {
+          "type" : "string",
+          "description" : "De naam van het aangeleverde bestand"
+        },
+        "bestandsgrootte" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Bestandsgrootte in bytes van het aangeleverde bestand"
+        },
+        "aanleverNummer" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Het aanlevernummer"
+        },
+        "aanleverDatum" : {
+          "type" : "string",
+          "description" : "De datumtijd waarop de aanlevering is gedaan."
+        },
+        "aanleverStatus" : {
+          "type" : "string",
+          "description" : "Status van de aanlevering (zie waardelijst)."
+        },
+        "aanleverStatusMutatieDatum" : {
+          "type" : "string",
+          "description" : "De datumtijd waarop de aanlevering is voor het laatst is gewijzigd."
+        },
+        "aanleverStatusHistorie" : {
+          "type" : "array",
+          "description" : "Lijst met de aanleverstatus historie",
+          "items" : {
+            "$ref" : "#/definitions/AanleverStatusHistorie"
+          }
+        },
+        "aanleverStappen" : {
+          "type" : "array",
+          "description" : "Lijst met de aanleverstappen",
+          "items" : {
+            "$ref" : "#/definitions/AanleverStap"
+          }
+        }
+      },
+      "description" : "Gegevens van een beheerdersinformatie aanlevering",
+      "x-className" : {
+        "type" : "string",
+        "format" : "nl.kadaster.klic.model.api.gebiedsinformatieaanvraag.v2.Aanlevering"
+      }
+    },
+    "BeheerdersinformatieLevering" : {
+      "type" : "object",
+      "required" : [ "biAanvraagId" ],
+      "properties" : {
+        "biAanvraagId" : {
+          "type" : "string",
+          "format" : "uuid",
+          "description" : "Unieke identificatie van de beheerdersinformatie-aanvraag (UUID)"
+        },
+        "datumBeheerdersinformatieOntvangen" : {
+          "type" : "string",
+          "description" : "De datumtijd waarop valide beheerdersinformatie door het Kadaster is ontvangen."
+        },
+        "mutatieDatum" : {
+          "type" : "string",
+          "description" : "De datumtijd waarop de beheerdersinformatie-levering voor het laatst gewijzigd is."
+        },
+        "betrokkenBijAanvraag" : {
+          "type" : "boolean",
+          "description" : "Indicator die aangeeft of er door de netbeheerder netinformatie is geleverd."
+        },
+        "indicatieEisVoorzorgsmaatregel" : {
+          "type" : "boolean",
+          "description" : "Indicator die aangeeft of er sprake is van een eisVoorzorgmaatregel bij één van de aangeleverde thema's."
+        },
+        "geleverdeThemas" : {
+          "type" : "array",
+          "uniqueItems" : true,
+          "items" : {
+            "$ref" : "#/definitions/BeheerdersinformatieLeveringThema"
+          }
+        }
+      },
+      "description" : "BeheerdersinformatieLevering"
+    },
+    "BeheerdersinformatieLeveringThema" : {
+      "type" : "object",
+      "properties" : {
+        "thema" : {
+          "type" : "string",
+          "description" : "IMKL-thema (zie waardelijst)."
+        },
+        "indicatieEisVoorzorgsmaatregel" : {
+          "type" : "boolean",
+          "description" : "Indicator die aangeeft of er sprake is van een eisVoorzorgmaatregel voor het betreffende thema."
+        }
+      },
+      "description" : "BeheerdersinformatieLeveringThema"
+    },
+    "BeheerdersinformatieLeveringPagedResponse" : {
+      "type" : "object",
+      "required" : [ "_links", "beheerdersinformatieLeveringen" ],
+      "properties" : {
+        "_links" : {
+          "type" : "object",
+          "description" : "Links naar self en/of volgende pagina",
+          "readOnly" : true,
+          "additionalProperties" : {
+            "$ref" : "#/definitions/Link"
+          }
+        },
+        "beheerdersinformatieLeveringen" : {
+          "type" : "array",
+          "description" : "Een lijst van BeheerdersinformatieLeveringen",
+          "readOnly" : true,
+          "items" : {
+            "$ref" : "#/definitions/BeheerdersinformatieLevering"
+          }
+        }
+      },
+      "x-className" : {
+        "type" : "string",
+        "format" : "nl.kadaster.klic.model.api.gebiedsinformatieaanvraag.v2.pagination.BeheerdersinformatieLeveringPagedResponse"
+      }
+    },
+    "GebiedsinformatieLevering" : {
+      "type" : "object",
+      "required" : [ "datumLeveringSamengesteld", "giAanvraagId", "giLeveringId", "giLeveringUrl", "indicatieLeveringCompleet", "leveringsvolgnummer", "mutatieDatum" ],
+      "properties" : {
+        "giAanvraagId" : {
+          "type" : "string",
+          "description" : "Unieke identificatie van de gebiedsinformatie-aanvraag (UUID)"
+        },
+        "giLeveringId" : {
+          "type" : "string",
+          "description" : "Unieke identificatie van de gebiedsinformatie-levering (UUID)"
+        },
+        "leveringsvolgnummer" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Volgnummer van een gebiedsinformatie-levering voor een gebiedsinformatie-aanvraag."
+        },
+        "datumLeveringSamengesteld" : {
+          "type" : "string",
+          "description" : "De datumtijd waarop de levering met gebiedsinformatie is samengesteld."
+        },
+        "mutatieDatum" : {
+          "type" : "string",
+          "description" : "De datumtijd waarop de gebiedsinformatie-levering voor het laatst gewijzigd is."
+        },
+        "indicatieLeveringCompleet" : {
+          "type" : "boolean",
+          "description" : "Indicator die aangeeft of de levering compleet is (dus, of alle belanghebbende bronhouders al hebben geleverd)."
+        },
+        "giLeveringUrl" : {
+          "type" : "string",
+          "description" : "Link naar de gebiedsinformatie-levering op de downloadserver (zipbestand)."
+        }
+      },
+      "description" : "De gebiedsinformatie-levering"
+    },
+    "GebiedsinformatieLeveringPagedResponse" : {
+      "type" : "object",
+      "required" : [ "_links", "gebiedsinformatieLeveringen" ],
+      "properties" : {
+        "_links" : {
+          "type" : "object",
+          "description" : "Links naar self en/of volgende pagina",
+          "readOnly" : true,
+          "additionalProperties" : {
+            "$ref" : "#/definitions/Link"
+          }
+        },
+        "gebiedsinformatieLeveringen" : {
+          "type" : "array",
+          "description" : "Een lijst van GebiedsinformatieLeveringen",
+          "readOnly" : true,
+          "items" : {
+            "$ref" : "#/definitions/GebiedsinformatieLevering"
+          }
+        }
+      },
+      "description" : "Gepagineerde response voor GebiedsinformatieAanvraag",
+      "x-className" : {
+        "type" : "string",
+        "format" : "nl.kadaster.klic.model.api.gebiedsinformatieaanvraag.v2.pagination.GebiedsinformatieLeveringPagedResponse"
+      }
+    },
+    "Geometry" : {
+      "type" : "object",
+      "properties" : {
+        "type" : {
+          "type" : "string"
+        },
+        "coordinates" : {
+          "type" : "array",
+          "items" : {
+            "type" : "number",
+            "format" : "double"
+          }
+        }
+      }
+    },
+    "TerugmeldingenPagedResponse" : {
+      "type" : "object",
+      "required" : [ "_links", "terugmeldingen" ],
+      "properties" : {
+        "_links" : {
+          "type" : "object",
+          "description" : "Links naar self en/of volgende pagina",
+          "readOnly" : true,
+          "additionalProperties" : {
+            "$ref" : "#/definitions/Link"
+          }
+        },
+        "terugmeldingen" : {
+          "type" : "array",
+          "description" : "Een lijst van Terugmeldingen",
+          "readOnly" : true,
+          "items" : {
+            "$ref" : "#/definitions/TerugmeldingInformatie"
+          }
+        }
+      },
+      "description" : "Gepagineerde response voor Terugmeldingen",
+      "x-className" : {
+        "type" : "string",
+        "format" : "nl.kadaster.klic.model.api.gebiedsinformatieaanvraag.v2.pagination.TerugmeldingenPagedResponse"
+      }
+    },
+    "Secundair" : {
+      "type" : "object",
+      "properties" : {
+        "situatie" : {
+          "type" : "string"
+        },
+        "netbeheerder" : {
+          "type" : "string"
+        },
+        "klicmeldnummer" : {
+          "type" : "string"
+        },
+        "referentie" : {
+          "type" : "string"
+        },
+        "terugmelder" : {
+          "type" : "string"
+        },
+        "telefoonnummer" : {
+          "type" : "string"
+        },
+        "thema" : {
+          "type" : "string"
+        },
+        "bedrijfsnaam" : {
+          "type" : "string"
+        },
+        "getekendeGeometrie" : {
+          "type" : "object",
+          "readOnly" : true
+        }
+      }
+    },
+    "Bijlagen" : {
+      "type" : "object",
+      "properties" : {
+        "url" : {
+          "type" : "string"
+        },
+        "naam" : {
+          "type" : "string"
+        }
+      }
+    },
+    "TerugmeldingInformatie" : {
+      "type" : "object",
+      "properties" : {
+        "terugmeldingId" : {
+          "type" : "string",
+          "description" : "Unieke Id van de terugmelding"
+        },
+        "giAanvraagId" : {
+          "type" : "string",
+          "description" : "Unieke Id van de gebiedsInformatieAanvraag"
+        },
+        "datumAangemaakt" : {
+          "type" : "string",
+          "description" : "De datumtijd waarop de terugmelding is aangemaakt"
+        },
+        "mutatieDatum" : {
+          "type" : "string",
+          "description" : "De datumtijd waarop de terugmelding voor het laatst gemuteerd is"
+        },
+        "klicmeldnummer" : {
+          "type" : "string",
+          "description" : "Klic meldnummer van de terugmelding"
+        },
+        "tmKlicTerugmeldStatus" : {
+          "type" : "string",
+          "description" : "Klic Status van de terugmelding"
+        },
+        "kccBehandelaar" : {
+          "type" : "string"
+        },
+        "kccNotitie" : {
+          "type" : "string"
+        },
+        "tmsmelding" : {
+          "description" : "Tms terugmelding data",
+          "$ref" : "#/definitions/Feature"
+        }
+      },
+      "description" : "De Terugmelding-informatie",
+      "x-className" : {
+        "type" : "string",
+        "format" : "nl.kadaster.klic.model.api.gebiedsinformatieaanvraag.v2.TerugmeldingInformatie"
+      }
+    },
+    "Properties" : {
+      "type" : "object",
+      "properties" : {
+        "meldingsNummerVolledig" : {
+          "type" : "string"
+        },
+        "meldingsNummer" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "tijdstipWijziging" : {
+          "type" : "string"
+        },
+        "bron" : {
+          "type" : "string"
+        },
+        "registratie" : {
+          "type" : "string"
+        },
+        "locatieLink" : {
+          "type" : "string"
+        },
+        "tijdstipRegistratie" : {
+          "type" : "string"
+        },
+        "bronhoudernaam" : {
+          "type" : "string"
+        },
+        "bronhoudercode" : {
+          "type" : "string"
+        },
+        "objectType" : {
+          "type" : "string"
+        },
+        "omschrijving" : {
+          "type" : "string"
+        },
+        "tijdstipStatusWijziging" : {
+          "type" : "string"
+        },
+        "objectId" : {
+          "type" : "string"
+        },
+        "status" : {
+          "type" : "string"
+        },
+        "statusCode" : {
+          "type" : "string"
+        },
+        "gewijzigdDoor" : {
+          "type" : "string"
+        },
+        "secundair" : {
+          "$ref" : "#/definitions/Secundair"
+        },
+        "bijlagen" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Bijlagen"
+          }
+        },
+        "email" : {
+          "type" : "string"
+        }
+      }
+    },
+    "Feature" : {
+      "type" : "object",
+      "properties" : {
+        "type" : {
+          "type" : "string"
+        },
+        "geometry" : {
+          "$ref" : "#/definitions/Geometry"
+        },
+        "properties" : {
+          "$ref" : "#/definitions/Properties"
+        }
+      }
+    },
+    "BeheerdersTerugmeldingPagedResponse" : {
+      "type" : "object",
+      "required" : [ "_links", "beheerdersTerugmeldingen" ],
+      "properties" : {
+        "_links" : {
+          "type" : "object",
+          "description" : "Links naar self en/of volgende pagina",
+          "readOnly" : true,
+          "additionalProperties" : {
+            "$ref" : "#/definitions/Link"
+          }
+        },
+        "beheerdersTerugmeldingen" : {
+          "type" : "array",
+          "description" : "Een lijst van Terugmeldingen",
+          "readOnly" : true,
+          "items" : {
+            "$ref" : "#/definitions/BeheerdersTerugmelding"
+          }
+        }
+      },
+      "description" : "Gepagineerde response voor BeheerdersTerugmelding",
+      "x-className" : {
+        "type" : "string",
+        "format" : "nl.kadaster.klic.model.api.gebiedsinformatieaanvraag.v2.pagination.BeheerdersTerugmeldingPagedResponse"
+      }
+    },
+    "BeheerdersTerugmelding" : {
+      "type" : "object",
+      "properties" : {
+        "terugmeldingId" : {
+          "type" : "string",
+          "description" : "Unieke Id van de terugmelding"
+        },
+        "beheerdersTerugmeldingId" : {
+          "type" : "string",
+          "description" : "Unieke Id van de beheerdersterugmelding"
+        },
+        "bronhouderCode" : {
+          "type" : "string",
+          "description" : "Unieke code van de bronhouder (netbeheerder) waarvoor een terugmelding-aanvraag wordt behandeld."
+        },
+        "bronhouderNaam" : {
+          "type" : "string",
+          "description" : "Naam van de bronhouder (netbeheerder) waarvoor een terugmelding-aanvraag wordt behandeld."
+        },
+        "tmNotificatieStatus" : {
+          "type" : "string",
+          "description" : "NotificatieStatus van de beheerdersterugmelding"
+        },
+        "datumGenotificeerd" : {
+          "type" : "string",
+          "description" : "De datumtijd waarop de beheerdersterugmelding genotificeerd is"
+        },
+        "datumBevestigingOntvangen" : {
+          "type" : "string",
+          "description" : "De datumtijd bevestiging ontvangen van de beheerdersterugmelding"
+        },
+        "tmClaimStatus" : {
+          "type" : "string",
+          "description" : "ClaimStatus van de beheerdersterugmelding"
+        },
+        "datumClaimMutatieOntvangen" : {
+          "type" : "string",
+          "description" : "De datumtijd claim mutatie ontvangen van de beheerdersterugmelding"
+        },
+        "tmToegewezenStatus" : {
+          "type" : "string",
+          "description" : "ToegewezenStatus van de beheerdersterugmelding"
+        },
+        "datumToegewezenMutatieOntvangen" : {
+          "type" : "string",
+          "description" : "De datumtijd toegewezen mutatie ontvangen van de beheerdersterugmelding"
+        },
+        "mutatieDatum" : {
+          "type" : "string",
+          "description" : "De datumtijd waarop de beheerdersterugmelding voor het laatst gemuteerd is"
+        }
+      },
+      "description" : "De beheerdersterugmelding-aanvraag",
+      "x-className" : {
+        "type" : "string",
+        "format" : "nl.kadaster.klic.model.api.gebiedsinformatieaanvraag.v2.BeheerdersTerugmelding"
+      }
+    },
+    "PatchTerugmeldingOperationImpl" : {
+      "type" : "object",
+      "properties" : {
+        "tmNotificatieStatus" : {
+          "type" : "string"
+        },
+        "tmClaimStatus" : {
+          "type" : "string"
+        },
+        "tmToegewezenStatus" : {
+          "type" : "string"
+        }
+      },
+      "x-className" : {
+        "type" : "string",
+        "format" : "nl.kadaster.klic.service.v2.PatchTerugmeldingOperationImpl"
+      }
+    },
+    "BeheerdersInformatieNotificatieStatus" : {
+      "type" : "object",
+      "required" : [ "key", "value" ],
+      "properties" : {
+        "key" : {
+          "type" : "string",
+          "description" : "Unieke identificatie van een beheerdersinformatieNotificatieStatus (URI)"
+        },
+        "value" : {
+          "type" : "string",
+          "description" : "De omschrijving van de beheerdersinformatieNotificatieStatus in het Nederlands"
+        }
+      },
+      "description" : "De lijst met beheerdersinformatieNotificatieStatussen",
+      "x-className" : {
+        "type" : "string",
+        "format" : "nl.kadaster.klic.model.api.codelist.v2.BeheerdersInformatieNotificatieStatus"
+      }
+    },
+    "BeheerdersInformatieProductieStatus" : {
+      "type" : "object",
+      "required" : [ "key", "value" ],
+      "properties" : {
+        "key" : {
+          "type" : "string",
+          "description" : "Unieke identificatie van een beheerdersinformatieProductieStatus (URI)"
+        },
+        "value" : {
+          "type" : "string",
+          "description" : "De omschrijving van de beheerdersinformatieProductieStatus in het Nederlands"
+        }
+      },
+      "description" : "De lijst met beheerdersinformatieProductieStatussen",
+      "x-className" : {
+        "type" : "string",
+        "format" : "nl.kadaster.klic.model.api.codelist.v2.BeheerdersInformatieProductieStatus"
+      }
+    },
+    "GebiedsinformatieAanvraagStatus" : {
+      "type" : "object",
+      "required" : [ "key", "value" ],
+      "properties" : {
+        "key" : {
+          "type" : "string",
+          "description" : "Unieke identificatie van een gebiedsinformatieAanvraagStatus (URI)"
+        },
+        "value" : {
+          "type" : "string",
+          "description" : "De omschrijving van de gebiedsinformatieAanvraagStatus in het Nederlands"
+        }
+      },
+      "description" : "De lijst met GebiedsinformatieAanvraagStatussen",
+      "x-className" : {
+        "type" : "string",
+        "format" : "nl.kadaster.klic.model.api.codelist.v2.GebiedsinformatieAanvraagStatus"
+      }
+    },
+    "TmsClaimStatusses" : {
+      "type" : "object",
+      "required" : [ "key", "value" ],
+      "properties" : {
+        "key" : {
+          "type" : "string",
+          "description" : "Unieke identificatie van een tmsClaimStatus (URI)"
+        },
+        "value" : {
+          "type" : "string",
+          "description" : "De omschrijving van de tmsClaimStatus in het Nederlands"
+        }
+      },
+      "description" : "De lijst met tmsClaimStatusses",
+      "x-className" : {
+        "type" : "string",
+        "format" : "nl.kadaster.klic.model.api.codelist.TmsClaimStatusses"
+      }
+    },
+    "TmsKlicStatusses" : {
+      "type" : "object",
+      "required" : [ "key", "value" ],
+      "properties" : {
+        "key" : {
+          "type" : "string",
+          "description" : "Unieke identificatie van een tmsKlicStatus (URI)"
+        },
+        "value" : {
+          "type" : "string",
+          "description" : "De omschrijving van de tmsKlicStatus in het Nederlands"
+        }
+      },
+      "description" : "De lijst met tmsKlicStatusses",
+      "x-className" : {
+        "type" : "string",
+        "format" : "nl.kadaster.klic.model.api.codelist.TmsKlicStatusses"
+      }
+    },
+    "TmsNotificatieStatusses" : {
+      "type" : "object",
+      "required" : [ "key", "value" ],
+      "properties" : {
+        "key" : {
+          "type" : "string",
+          "description" : "Unieke identificatie van een tmsNotificatieStatus (URI)"
+        },
+        "value" : {
+          "type" : "string",
+          "description" : "De omschrijving van de tmsNotificatieStatus in het Nederlands"
+        }
+      },
+      "description" : "De lijst met tmsNotificatieStatusses",
+      "x-className" : {
+        "type" : "string",
+        "format" : "nl.kadaster.klic.model.api.codelist.TmsNotificatieStatusses"
+      }
+    },
+    "TmsToegewezenStatusses" : {
+      "type" : "object",
+      "required" : [ "key", "value" ],
+      "properties" : {
+        "key" : {
+          "type" : "string",
+          "description" : "Unieke identificatie van een tmsToegewezenStatus (URI)"
+        },
+        "value" : {
+          "type" : "string",
+          "description" : "De omschrijving van de tmsToegewezenStatus in het Nederlands"
+        }
+      },
+      "description" : "De lijst met tmsToegewezenStatusses",
+      "x-className" : {
+        "type" : "string",
+        "format" : "nl.kadaster.klic.model.api.codelist.TmsToegewezenStatusses"
+      }
+    }
+  }
+}
