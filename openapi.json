@@ -1511,11 +1511,11 @@
             "authorizationUrl": "https://authorization.acceptatie.kadaster.nl/auth/oauth/v2/authorize",
             "flow": "implicit",
             "scopes": {
-                "klic.centraal": "Actualiseren van netinformatie, documenten, voorzorgsmaatregelen tbv centrale voorziening",
-                "klic.gebiedsinformatieaanvraag.readonly": "Opvragen gebiedsinformatie-aanvragen (door aanvrager of belanghebbende beheerder)",
-                "klic.beheerdersinformatie": "Aanleveren en opvragen eigen beheerdersinformatie (decentraal)",
-                "klic.beheerdersinformatie.readonly": "Inzien eigen beheerdersinformatie",
-                "klic.toezicht": "Inzien gebiedsdinformatie en beheerdersinformatie"
+                "klic.ntd.centraal": "Actualiseren van netinformatie, documenten, voorzorgsmaatregelen tbv centrale voorziening",
+                "klic.ntd.gebiedsinformatieaanvraag.readonly": "Opvragen gebiedsinformatie-aanvragen (door aanvrager of belanghebbende beheerder)",
+                "klic.ntd.beheerdersinformatie": "Aanleveren en opvragen eigen beheerdersinformatie (decentraal)",
+                "klic.ntd.beheerdersinformatie.readonly": "Inzien eigen beheerdersinformatie",
+                "klic.ntd.toezicht": "Inzien gebiedsdinformatie en beheerdersinformatie"
             }
         }
     },
